@@ -1,0 +1,387 @@
+Layer-wise Param Count:
+"""
+fopen = open("commit_logs/layer_detail.txt", "w")
+param_count = 0
+for name, param in layer.named_parameters():
+    if len(param.shape) > 1: param_count += (param.shape[0] * param.shape[1])
+    else: param_count += param.shape[0]
+    fopen.write(f"{name}\t{param.shape}\t{param_count}\n")
+    fopen.flush()
+"""
+attention.wq.weight	torch.Size([2560, 5120])	13107200
+attention.wk.weight	torch.Size([2560, 5120])	26214400
+attention.wv.weight	torch.Size([2560, 5120])	39321600
+attention.wo.weight	torch.Size([5120, 2560])	52428800
+feed_forward.w1.weight	torch.Size([6912, 5120])	87818240
+feed_forward.w2.weight	torch.Size([5120, 6912])	123207680
+feed_forward.w3.weight	torch.Size([6912, 5120])	158597120
+attention_norm.weight	torch.Size([5120])	158602240
+ffn_norm.weight	torch.Size([5120])	158607360
+
+
+------------------------------------------------------------
+
+
+tok_embeddings.weight	torch.Size([32000, 2560])	81920000
+layers.0.attention.wq.weight	torch.Size([2560, 5120])	95027200
+layers.0.attention.wk.weight	torch.Size([2560, 5120])	108134400
+layers.0.attention.wv.weight	torch.Size([2560, 5120])	121241600
+layers.0.attention.wo.weight	torch.Size([5120, 2560])	134348800
+layers.0.feed_forward.w1.weight	torch.Size([6912, 5120])	169738240
+layers.0.feed_forward.w2.weight	torch.Size([5120, 6912])	205127680
+layers.0.feed_forward.w3.weight	torch.Size([6912, 5120])	240517120
+layers.0.attention_norm.weight	torch.Size([5120])	240522240
+layers.0.ffn_norm.weight	torch.Size([5120])	240527360
+layers.1.attention.wq.weight	torch.Size([2560, 5120])	253634560
+layers.1.attention.wk.weight	torch.Size([2560, 5120])	266741760
+layers.1.attention.wv.weight	torch.Size([2560, 5120])	279848960
+layers.1.attention.wo.weight	torch.Size([5120, 2560])	292956160
+layers.1.feed_forward.w1.weight	torch.Size([6912, 5120])	328345600
+layers.1.feed_forward.w2.weight	torch.Size([5120, 6912])	363735040
+layers.1.feed_forward.w3.weight	torch.Size([6912, 5120])	399124480
+layers.1.attention_norm.weight	torch.Size([5120])	399129600
+layers.1.ffn_norm.weight	torch.Size([5120])	399134720
+layers.2.attention.wq.weight	torch.Size([2560, 5120])	412241920
+layers.2.attention.wk.weight	torch.Size([2560, 5120])	425349120
+layers.2.attention.wv.weight	torch.Size([2560, 5120])	438456320
+layers.2.attention.wo.weight	torch.Size([5120, 2560])	451563520
+layers.2.feed_forward.w1.weight	torch.Size([6912, 5120])	486952960
+layers.2.feed_forward.w2.weight	torch.Size([5120, 6912])	522342400
+layers.2.feed_forward.w3.weight	torch.Size([6912, 5120])	557731840
+layers.2.attention_norm.weight	torch.Size([5120])	557736960
+layers.2.ffn_norm.weight	torch.Size([5120])	557742080
+layers.3.attention.wq.weight	torch.Size([2560, 5120])	570849280
+layers.3.attention.wk.weight	torch.Size([2560, 5120])	583956480
+layers.3.attention.wv.weight	torch.Size([2560, 5120])	597063680
+layers.3.attention.wo.weight	torch.Size([5120, 2560])	610170880
+layers.3.feed_forward.w1.weight	torch.Size([6912, 5120])	645560320
+layers.3.feed_forward.w2.weight	torch.Size([5120, 6912])	680949760
+layers.3.feed_forward.w3.weight	torch.Size([6912, 5120])	716339200
+layers.3.attention_norm.weight	torch.Size([5120])	716344320
+layers.3.ffn_norm.weight	torch.Size([5120])	716349440
+layers.4.attention.wq.weight	torch.Size([2560, 5120])	729456640
+layers.4.attention.wk.weight	torch.Size([2560, 5120])	742563840
+layers.4.attention.wv.weight	torch.Size([2560, 5120])	755671040
+layers.4.attention.wo.weight	torch.Size([5120, 2560])	768778240
+layers.4.feed_forward.w1.weight	torch.Size([6912, 5120])	804167680
+layers.4.feed_forward.w2.weight	torch.Size([5120, 6912])	839557120
+layers.4.feed_forward.w3.weight	torch.Size([6912, 5120])	874946560
+layers.4.attention_norm.weight	torch.Size([5120])	874951680
+layers.4.ffn_norm.weight	torch.Size([5120])	874956800
+layers.5.attention.wq.weight	torch.Size([2560, 5120])	888064000
+layers.5.attention.wk.weight	torch.Size([2560, 5120])	901171200
+layers.5.attention.wv.weight	torch.Size([2560, 5120])	914278400
+layers.5.attention.wo.weight	torch.Size([5120, 2560])	927385600
+layers.5.feed_forward.w1.weight	torch.Size([6912, 5120])	962775040
+layers.5.feed_forward.w2.weight	torch.Size([5120, 6912])	998164480
+layers.5.feed_forward.w3.weight	torch.Size([6912, 5120])	1033553920
+layers.5.attention_norm.weight	torch.Size([5120])	1033559040
+layers.5.ffn_norm.weight	torch.Size([5120])	1033564160
+layers.6.attention.wq.weight	torch.Size([2560, 5120])	1046671360
+layers.6.attention.wk.weight	torch.Size([2560, 5120])	1059778560
+layers.6.attention.wv.weight	torch.Size([2560, 5120])	1072885760
+layers.6.attention.wo.weight	torch.Size([5120, 2560])	1085992960
+layers.6.feed_forward.w1.weight	torch.Size([6912, 5120])	1121382400
+layers.6.feed_forward.w2.weight	torch.Size([5120, 6912])	1156771840
+layers.6.feed_forward.w3.weight	torch.Size([6912, 5120])	1192161280
+layers.6.attention_norm.weight	torch.Size([5120])	1192166400
+layers.6.ffn_norm.weight	torch.Size([5120])	1192171520
+layers.7.attention.wq.weight	torch.Size([2560, 5120])	1205278720
+layers.7.attention.wk.weight	torch.Size([2560, 5120])	1218385920
+layers.7.attention.wv.weight	torch.Size([2560, 5120])	1231493120
+layers.7.attention.wo.weight	torch.Size([5120, 2560])	1244600320
+layers.7.feed_forward.w1.weight	torch.Size([6912, 5120])	1279989760
+layers.7.feed_forward.w2.weight	torch.Size([5120, 6912])	1315379200
+layers.7.feed_forward.w3.weight	torch.Size([6912, 5120])	1350768640
+layers.7.attention_norm.weight	torch.Size([5120])	1350773760
+layers.7.ffn_norm.weight	torch.Size([5120])	1350778880
+layers.8.attention.wq.weight	torch.Size([2560, 5120])	1363886080
+layers.8.attention.wk.weight	torch.Size([2560, 5120])	1376993280
+layers.8.attention.wv.weight	torch.Size([2560, 5120])	1390100480
+layers.8.attention.wo.weight	torch.Size([5120, 2560])	1403207680
+layers.8.feed_forward.w1.weight	torch.Size([6912, 5120])	1438597120
+layers.8.feed_forward.w2.weight	torch.Size([5120, 6912])	1473986560
+layers.8.feed_forward.w3.weight	torch.Size([6912, 5120])	1509376000
+layers.8.attention_norm.weight	torch.Size([5120])	1509381120
+layers.8.ffn_norm.weight	torch.Size([5120])	1509386240
+layers.9.attention.wq.weight	torch.Size([2560, 5120])	1522493440
+layers.9.attention.wk.weight	torch.Size([2560, 5120])	1535600640
+layers.9.attention.wv.weight	torch.Size([2560, 5120])	1548707840
+layers.9.attention.wo.weight	torch.Size([5120, 2560])	1561815040
+layers.9.feed_forward.w1.weight	torch.Size([6912, 5120])	1597204480
+layers.9.feed_forward.w2.weight	torch.Size([5120, 6912])	1632593920
+layers.9.feed_forward.w3.weight	torch.Size([6912, 5120])	1667983360
+layers.9.attention_norm.weight	torch.Size([5120])	1667988480
+layers.9.ffn_norm.weight	torch.Size([5120])	1667993600
+layers.10.attention.wq.weight	torch.Size([2560, 5120])	1681100800
+layers.10.attention.wk.weight	torch.Size([2560, 5120])	1694208000
+layers.10.attention.wv.weight	torch.Size([2560, 5120])	1707315200
+layers.10.attention.wo.weight	torch.Size([5120, 2560])	1720422400
+layers.10.feed_forward.w1.weight	torch.Size([6912, 5120])	1755811840
+layers.10.feed_forward.w2.weight	torch.Size([5120, 6912])	1791201280
+layers.10.feed_forward.w3.weight	torch.Size([6912, 5120])	1826590720
+layers.10.attention_norm.weight	torch.Size([5120])	1826595840
+layers.10.ffn_norm.weight	torch.Size([5120])	1826600960
+layers.11.attention.wq.weight	torch.Size([2560, 5120])	1839708160
+layers.11.attention.wk.weight	torch.Size([2560, 5120])	1852815360
+layers.11.attention.wv.weight	torch.Size([2560, 5120])	1865922560
+layers.11.attention.wo.weight	torch.Size([5120, 2560])	1879029760
+layers.11.feed_forward.w1.weight	torch.Size([6912, 5120])	1914419200
+layers.11.feed_forward.w2.weight	torch.Size([5120, 6912])	1949808640
+layers.11.feed_forward.w3.weight	torch.Size([6912, 5120])	1985198080
+layers.11.attention_norm.weight	torch.Size([5120])	1985203200
+layers.11.ffn_norm.weight	torch.Size([5120])	1985208320
+layers.12.attention.wq.weight	torch.Size([2560, 5120])	1998315520
+layers.12.attention.wk.weight	torch.Size([2560, 5120])	2011422720
+layers.12.attention.wv.weight	torch.Size([2560, 5120])	2024529920
+layers.12.attention.wo.weight	torch.Size([5120, 2560])	2037637120
+layers.12.feed_forward.w1.weight	torch.Size([6912, 5120])	2073026560
+layers.12.feed_forward.w2.weight	torch.Size([5120, 6912])	2108416000
+layers.12.feed_forward.w3.weight	torch.Size([6912, 5120])	2143805440
+layers.12.attention_norm.weight	torch.Size([5120])	2143810560
+layers.12.ffn_norm.weight	torch.Size([5120])	2143815680
+layers.13.attention.wq.weight	torch.Size([2560, 5120])	2156922880
+layers.13.attention.wk.weight	torch.Size([2560, 5120])	2170030080
+layers.13.attention.wv.weight	torch.Size([2560, 5120])	2183137280
+layers.13.attention.wo.weight	torch.Size([5120, 2560])	2196244480
+layers.13.feed_forward.w1.weight	torch.Size([6912, 5120])	2231633920
+layers.13.feed_forward.w2.weight	torch.Size([5120, 6912])	2267023360
+layers.13.feed_forward.w3.weight	torch.Size([6912, 5120])	2302412800
+layers.13.attention_norm.weight	torch.Size([5120])	2302417920
+layers.13.ffn_norm.weight	torch.Size([5120])	2302423040
+layers.14.attention.wq.weight	torch.Size([2560, 5120])	2315530240
+layers.14.attention.wk.weight	torch.Size([2560, 5120])	2328637440
+layers.14.attention.wv.weight	torch.Size([2560, 5120])	2341744640
+layers.14.attention.wo.weight	torch.Size([5120, 2560])	2354851840
+layers.14.feed_forward.w1.weight	torch.Size([6912, 5120])	2390241280
+layers.14.feed_forward.w2.weight	torch.Size([5120, 6912])	2425630720
+layers.14.feed_forward.w3.weight	torch.Size([6912, 5120])	2461020160
+layers.14.attention_norm.weight	torch.Size([5120])	2461025280
+layers.14.ffn_norm.weight	torch.Size([5120])	2461030400
+layers.15.attention.wq.weight	torch.Size([2560, 5120])	2474137600
+layers.15.attention.wk.weight	torch.Size([2560, 5120])	2487244800
+layers.15.attention.wv.weight	torch.Size([2560, 5120])	2500352000
+layers.15.attention.wo.weight	torch.Size([5120, 2560])	2513459200
+layers.15.feed_forward.w1.weight	torch.Size([6912, 5120])	2548848640
+layers.15.feed_forward.w2.weight	torch.Size([5120, 6912])	2584238080
+layers.15.feed_forward.w3.weight	torch.Size([6912, 5120])	2619627520
+layers.15.attention_norm.weight	torch.Size([5120])	2619632640
+layers.15.ffn_norm.weight	torch.Size([5120])	2619637760
+layers.16.attention.wq.weight	torch.Size([2560, 5120])	2632744960
+layers.16.attention.wk.weight	torch.Size([2560, 5120])	2645852160
+layers.16.attention.wv.weight	torch.Size([2560, 5120])	2658959360
+layers.16.attention.wo.weight	torch.Size([5120, 2560])	2672066560
+layers.16.feed_forward.w1.weight	torch.Size([6912, 5120])	2707456000
+layers.16.feed_forward.w2.weight	torch.Size([5120, 6912])	2742845440
+layers.16.feed_forward.w3.weight	torch.Size([6912, 5120])	2778234880
+layers.16.attention_norm.weight	torch.Size([5120])	2778240000
+layers.16.ffn_norm.weight	torch.Size([5120])	2778245120
+layers.17.attention.wq.weight	torch.Size([2560, 5120])	2791352320
+layers.17.attention.wk.weight	torch.Size([2560, 5120])	2804459520
+layers.17.attention.wv.weight	torch.Size([2560, 5120])	2817566720
+layers.17.attention.wo.weight	torch.Size([5120, 2560])	2830673920
+layers.17.feed_forward.w1.weight	torch.Size([6912, 5120])	2866063360
+layers.17.feed_forward.w2.weight	torch.Size([5120, 6912])	2901452800
+layers.17.feed_forward.w3.weight	torch.Size([6912, 5120])	2936842240
+layers.17.attention_norm.weight	torch.Size([5120])	2936847360
+layers.17.ffn_norm.weight	torch.Size([5120])	2936852480
+layers.18.attention.wq.weight	torch.Size([2560, 5120])	2949959680
+layers.18.attention.wk.weight	torch.Size([2560, 5120])	2963066880
+layers.18.attention.wv.weight	torch.Size([2560, 5120])	2976174080
+layers.18.attention.wo.weight	torch.Size([5120, 2560])	2989281280
+layers.18.feed_forward.w1.weight	torch.Size([6912, 5120])	3024670720
+layers.18.feed_forward.w2.weight	torch.Size([5120, 6912])	3060060160
+layers.18.feed_forward.w3.weight	torch.Size([6912, 5120])	3095449600
+layers.18.attention_norm.weight	torch.Size([5120])	3095454720
+layers.18.ffn_norm.weight	torch.Size([5120])	3095459840
+layers.19.attention.wq.weight	torch.Size([2560, 5120])	3108567040
+layers.19.attention.wk.weight	torch.Size([2560, 5120])	3121674240
+layers.19.attention.wv.weight	torch.Size([2560, 5120])	3134781440
+layers.19.attention.wo.weight	torch.Size([5120, 2560])	3147888640
+layers.19.feed_forward.w1.weight	torch.Size([6912, 5120])	3183278080
+layers.19.feed_forward.w2.weight	torch.Size([5120, 6912])	3218667520
+layers.19.feed_forward.w3.weight	torch.Size([6912, 5120])	3254056960
+layers.19.attention_norm.weight	torch.Size([5120])	3254062080
+layers.19.ffn_norm.weight	torch.Size([5120])	3254067200
+layers.20.attention.wq.weight	torch.Size([2560, 5120])	3267174400
+layers.20.attention.wk.weight	torch.Size([2560, 5120])	3280281600
+layers.20.attention.wv.weight	torch.Size([2560, 5120])	3293388800
+layers.20.attention.wo.weight	torch.Size([5120, 2560])	3306496000
+layers.20.feed_forward.w1.weight	torch.Size([6912, 5120])	3341885440
+layers.20.feed_forward.w2.weight	torch.Size([5120, 6912])	3377274880
+layers.20.feed_forward.w3.weight	torch.Size([6912, 5120])	3412664320
+layers.20.attention_norm.weight	torch.Size([5120])	3412669440
+layers.20.ffn_norm.weight	torch.Size([5120])	3412674560
+layers.21.attention.wq.weight	torch.Size([2560, 5120])	3425781760
+layers.21.attention.wk.weight	torch.Size([2560, 5120])	3438888960
+layers.21.attention.wv.weight	torch.Size([2560, 5120])	3451996160
+layers.21.attention.wo.weight	torch.Size([5120, 2560])	3465103360
+layers.21.feed_forward.w1.weight	torch.Size([6912, 5120])	3500492800
+layers.21.feed_forward.w2.weight	torch.Size([5120, 6912])	3535882240
+layers.21.feed_forward.w3.weight	torch.Size([6912, 5120])	3571271680
+layers.21.attention_norm.weight	torch.Size([5120])	3571276800
+layers.21.ffn_norm.weight	torch.Size([5120])	3571281920
+layers.22.attention.wq.weight	torch.Size([2560, 5120])	3584389120
+layers.22.attention.wk.weight	torch.Size([2560, 5120])	3597496320
+layers.22.attention.wv.weight	torch.Size([2560, 5120])	3610603520
+layers.22.attention.wo.weight	torch.Size([5120, 2560])	3623710720
+layers.22.feed_forward.w1.weight	torch.Size([6912, 5120])	3659100160
+layers.22.feed_forward.w2.weight	torch.Size([5120, 6912])	3694489600
+layers.22.feed_forward.w3.weight	torch.Size([6912, 5120])	3729879040
+layers.22.attention_norm.weight	torch.Size([5120])	3729884160
+layers.22.ffn_norm.weight	torch.Size([5120])	3729889280
+layers.23.attention.wq.weight	torch.Size([2560, 5120])	3742996480
+layers.23.attention.wk.weight	torch.Size([2560, 5120])	3756103680
+layers.23.attention.wv.weight	torch.Size([2560, 5120])	3769210880
+layers.23.attention.wo.weight	torch.Size([5120, 2560])	3782318080
+layers.23.feed_forward.w1.weight	torch.Size([6912, 5120])	3817707520
+layers.23.feed_forward.w2.weight	torch.Size([5120, 6912])	3853096960
+layers.23.feed_forward.w3.weight	torch.Size([6912, 5120])	3888486400
+layers.23.attention_norm.weight	torch.Size([5120])	3888491520
+layers.23.ffn_norm.weight	torch.Size([5120])	3888496640
+layers.24.attention.wq.weight	torch.Size([2560, 5120])	3901603840
+layers.24.attention.wk.weight	torch.Size([2560, 5120])	3914711040
+layers.24.attention.wv.weight	torch.Size([2560, 5120])	3927818240
+layers.24.attention.wo.weight	torch.Size([5120, 2560])	3940925440
+layers.24.feed_forward.w1.weight	torch.Size([6912, 5120])	3976314880
+layers.24.feed_forward.w2.weight	torch.Size([5120, 6912])	4011704320
+layers.24.feed_forward.w3.weight	torch.Size([6912, 5120])	4047093760
+layers.24.attention_norm.weight	torch.Size([5120])	4047098880
+layers.24.ffn_norm.weight	torch.Size([5120])	4047104000
+layers.25.attention.wq.weight	torch.Size([2560, 5120])	4060211200
+layers.25.attention.wk.weight	torch.Size([2560, 5120])	4073318400
+layers.25.attention.wv.weight	torch.Size([2560, 5120])	4086425600
+layers.25.attention.wo.weight	torch.Size([5120, 2560])	4099532800
+layers.25.feed_forward.w1.weight	torch.Size([6912, 5120])	4134922240
+layers.25.feed_forward.w2.weight	torch.Size([5120, 6912])	4170311680
+layers.25.feed_forward.w3.weight	torch.Size([6912, 5120])	4205701120
+layers.25.attention_norm.weight	torch.Size([5120])	4205706240
+layers.25.ffn_norm.weight	torch.Size([5120])	4205711360
+layers.26.attention.wq.weight	torch.Size([2560, 5120])	4218818560
+layers.26.attention.wk.weight	torch.Size([2560, 5120])	4231925760
+layers.26.attention.wv.weight	torch.Size([2560, 5120])	4245032960
+layers.26.attention.wo.weight	torch.Size([5120, 2560])	4258140160
+layers.26.feed_forward.w1.weight	torch.Size([6912, 5120])	4293529600
+layers.26.feed_forward.w2.weight	torch.Size([5120, 6912])	4328919040
+layers.26.feed_forward.w3.weight	torch.Size([6912, 5120])	4364308480
+layers.26.attention_norm.weight	torch.Size([5120])	4364313600
+layers.26.ffn_norm.weight	torch.Size([5120])	4364318720
+layers.27.attention.wq.weight	torch.Size([2560, 5120])	4377425920
+layers.27.attention.wk.weight	torch.Size([2560, 5120])	4390533120
+layers.27.attention.wv.weight	torch.Size([2560, 5120])	4403640320
+layers.27.attention.wo.weight	torch.Size([5120, 2560])	4416747520
+layers.27.feed_forward.w1.weight	torch.Size([6912, 5120])	4452136960
+layers.27.feed_forward.w2.weight	torch.Size([5120, 6912])	4487526400
+layers.27.feed_forward.w3.weight	torch.Size([6912, 5120])	4522915840
+layers.27.attention_norm.weight	torch.Size([5120])	4522920960
+layers.27.ffn_norm.weight	torch.Size([5120])	4522926080
+layers.28.attention.wq.weight	torch.Size([2560, 5120])	4536033280
+layers.28.attention.wk.weight	torch.Size([2560, 5120])	4549140480
+layers.28.attention.wv.weight	torch.Size([2560, 5120])	4562247680
+layers.28.attention.wo.weight	torch.Size([5120, 2560])	4575354880
+layers.28.feed_forward.w1.weight	torch.Size([6912, 5120])	4610744320
+layers.28.feed_forward.w2.weight	torch.Size([5120, 6912])	4646133760
+layers.28.feed_forward.w3.weight	torch.Size([6912, 5120])	4681523200
+layers.28.attention_norm.weight	torch.Size([5120])	4681528320
+layers.28.ffn_norm.weight	torch.Size([5120])	4681533440
+layers.29.attention.wq.weight	torch.Size([2560, 5120])	4694640640
+layers.29.attention.wk.weight	torch.Size([2560, 5120])	4707747840
+layers.29.attention.wv.weight	torch.Size([2560, 5120])	4720855040
+layers.29.attention.wo.weight	torch.Size([5120, 2560])	4733962240
+layers.29.feed_forward.w1.weight	torch.Size([6912, 5120])	4769351680
+layers.29.feed_forward.w2.weight	torch.Size([5120, 6912])	4804741120
+layers.29.feed_forward.w3.weight	torch.Size([6912, 5120])	4840130560
+layers.29.attention_norm.weight	torch.Size([5120])	4840135680
+layers.29.ffn_norm.weight	torch.Size([5120])	4840140800
+layers.30.attention.wq.weight	torch.Size([2560, 5120])	4853248000
+layers.30.attention.wk.weight	torch.Size([2560, 5120])	4866355200
+layers.30.attention.wv.weight	torch.Size([2560, 5120])	4879462400
+layers.30.attention.wo.weight	torch.Size([5120, 2560])	4892569600
+layers.30.feed_forward.w1.weight	torch.Size([6912, 5120])	4927959040
+layers.30.feed_forward.w2.weight	torch.Size([5120, 6912])	4963348480
+layers.30.feed_forward.w3.weight	torch.Size([6912, 5120])	4998737920
+layers.30.attention_norm.weight	torch.Size([5120])	4998743040
+layers.30.ffn_norm.weight	torch.Size([5120])	4998748160
+layers.31.attention.wq.weight	torch.Size([2560, 5120])	5011855360
+layers.31.attention.wk.weight	torch.Size([2560, 5120])	5024962560
+layers.31.attention.wv.weight	torch.Size([2560, 5120])	5038069760
+layers.31.attention.wo.weight	torch.Size([5120, 2560])	5051176960
+layers.31.feed_forward.w1.weight	torch.Size([6912, 5120])	5086566400
+layers.31.feed_forward.w2.weight	torch.Size([5120, 6912])	5121955840
+layers.31.feed_forward.w3.weight	torch.Size([6912, 5120])	5157345280
+layers.31.attention_norm.weight	torch.Size([5120])	5157350400
+layers.31.ffn_norm.weight	torch.Size([5120])	5157355520
+layers.32.attention.wq.weight	torch.Size([2560, 5120])	5170462720
+layers.32.attention.wk.weight	torch.Size([2560, 5120])	5183569920
+layers.32.attention.wv.weight	torch.Size([2560, 5120])	5196677120
+layers.32.attention.wo.weight	torch.Size([5120, 2560])	5209784320
+layers.32.feed_forward.w1.weight	torch.Size([6912, 5120])	5245173760
+layers.32.feed_forward.w2.weight	torch.Size([5120, 6912])	5280563200
+layers.32.feed_forward.w3.weight	torch.Size([6912, 5120])	5315952640
+layers.32.attention_norm.weight	torch.Size([5120])	5315957760
+layers.32.ffn_norm.weight	torch.Size([5120])	5315962880
+layers.33.attention.wq.weight	torch.Size([2560, 5120])	5329070080
+layers.33.attention.wk.weight	torch.Size([2560, 5120])	5342177280
+layers.33.attention.wv.weight	torch.Size([2560, 5120])	5355284480
+layers.33.attention.wo.weight	torch.Size([5120, 2560])	5368391680
+layers.33.feed_forward.w1.weight	torch.Size([6912, 5120])	5403781120
+layers.33.feed_forward.w2.weight	torch.Size([5120, 6912])	5439170560
+layers.33.feed_forward.w3.weight	torch.Size([6912, 5120])	5474560000
+layers.33.attention_norm.weight	torch.Size([5120])	5474565120
+layers.33.ffn_norm.weight	torch.Size([5120])	5474570240
+layers.34.attention.wq.weight	torch.Size([2560, 5120])	5487677440
+layers.34.attention.wk.weight	torch.Size([2560, 5120])	5500784640
+layers.34.attention.wv.weight	torch.Size([2560, 5120])	5513891840
+layers.34.attention.wo.weight	torch.Size([5120, 2560])	5526999040
+layers.34.feed_forward.w1.weight	torch.Size([6912, 5120])	5562388480
+layers.34.feed_forward.w2.weight	torch.Size([5120, 6912])	5597777920
+layers.34.feed_forward.w3.weight	torch.Size([6912, 5120])	5633167360
+layers.34.attention_norm.weight	torch.Size([5120])	5633172480
+layers.34.ffn_norm.weight	torch.Size([5120])	5633177600
+layers.35.attention.wq.weight	torch.Size([2560, 5120])	5646284800
+layers.35.attention.wk.weight	torch.Size([2560, 5120])	5659392000
+layers.35.attention.wv.weight	torch.Size([2560, 5120])	5672499200
+layers.35.attention.wo.weight	torch.Size([5120, 2560])	5685606400
+layers.35.feed_forward.w1.weight	torch.Size([6912, 5120])	5720995840
+layers.35.feed_forward.w2.weight	torch.Size([5120, 6912])	5756385280
+layers.35.feed_forward.w3.weight	torch.Size([6912, 5120])	5791774720
+layers.35.attention_norm.weight	torch.Size([5120])	5791779840
+layers.35.ffn_norm.weight	torch.Size([5120])	5791784960
+layers.36.attention.wq.weight	torch.Size([2560, 5120])	5804892160
+layers.36.attention.wk.weight	torch.Size([2560, 5120])	5817999360
+layers.36.attention.wv.weight	torch.Size([2560, 5120])	5831106560
+layers.36.attention.wo.weight	torch.Size([5120, 2560])	5844213760
+layers.36.feed_forward.w1.weight	torch.Size([6912, 5120])	5879603200
+layers.36.feed_forward.w2.weight	torch.Size([5120, 6912])	5914992640
+layers.36.feed_forward.w3.weight	torch.Size([6912, 5120])	5950382080
+layers.36.attention_norm.weight	torch.Size([5120])	5950387200
+layers.36.ffn_norm.weight	torch.Size([5120])	5950392320
+layers.37.attention.wq.weight	torch.Size([2560, 5120])	5963499520
+layers.37.attention.wk.weight	torch.Size([2560, 5120])	5976606720
+layers.37.attention.wv.weight	torch.Size([2560, 5120])	5989713920
+layers.37.attention.wo.weight	torch.Size([5120, 2560])	6002821120
+layers.37.feed_forward.w1.weight	torch.Size([6912, 5120])	6038210560
+layers.37.feed_forward.w2.weight	torch.Size([5120, 6912])	6073600000
+layers.37.feed_forward.w3.weight	torch.Size([6912, 5120])	6108989440
+layers.37.attention_norm.weight	torch.Size([5120])	6108994560
+layers.37.ffn_norm.weight	torch.Size([5120])	6108999680
+layers.38.attention.wq.weight	torch.Size([2560, 5120])	6122106880
+layers.38.attention.wk.weight	torch.Size([2560, 5120])	6135214080
+layers.38.attention.wv.weight	torch.Size([2560, 5120])	6148321280
+layers.38.attention.wo.weight	torch.Size([5120, 2560])	6161428480
+layers.38.feed_forward.w1.weight	torch.Size([6912, 5120])	6196817920
+layers.38.feed_forward.w2.weight	torch.Size([5120, 6912])	6232207360
+layers.38.feed_forward.w3.weight	torch.Size([6912, 5120])	6267596800
+layers.38.attention_norm.weight	torch.Size([5120])	6267601920
+layers.38.ffn_norm.weight	torch.Size([5120])	6267607040
+layers.39.attention.wq.weight	torch.Size([2560, 5120])	6280714240
+layers.39.attention.wk.weight	torch.Size([2560, 5120])	6293821440
+layers.39.attention.wv.weight	torch.Size([2560, 5120])	6306928640
+layers.39.attention.wo.weight	torch.Size([5120, 2560])	6320035840
+layers.39.feed_forward.w1.weight	torch.Size([6912, 5120])	6355425280
+layers.39.feed_forward.w2.weight	torch.Size([5120, 6912])	6390814720
+layers.39.feed_forward.w3.weight	torch.Size([6912, 5120])	6426204160
+layers.39.attention_norm.weight	torch.Size([5120])	6426209280
+layers.39.ffn_norm.weight	torch.Size([5120])	6426214400
+norm.weight	torch.Size([5120])	6426219520
+output.weight	torch.Size([16000, 5120])	6508139520
