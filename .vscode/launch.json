@@ -14,8 +14,8 @@
             "justMyCode": true,
             "args": [
                 "--nproc_per_node", "2",
-                "--master_port", "35000",
-                "chat_generation.py"
+                "--master_port", "35001",
+                "mt_bench_generation.py"
             ]
         }
     ]

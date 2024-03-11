@@ -16,7 +16,7 @@ from fairscale.nn.model_parallel.initialize import (
     model_parallel_is_initialized,
 )
 
-from llama.model_analysis import ModelArgs, Transformer
+from llama.model_skipffn import ModelArgs, Transformer
 from llama.tokenizer import Tokenizer
 
 Role = Literal["system", "user", "assistant"]
@@ -185,7 +185,7 @@ class Llama:
             )
         from llama.utils import calc_skip_pattern
         skip_pattern = calc_skip_pattern(1, total_len)
-        print(skip_pattern, len(skip_pattern))
+        # print(skip_pattern, len(skip_pattern))
         total_skip = 0
         total_layers = 0
         start_counter = False
@@ -229,7 +229,11 @@ class Llama:
         end.record()
         torch.cuda.synchronize()
         print(f"Total Elapsed Time Till Now: {start.elapsed_time(end)/1000:.2f} sec.")
-        print(f"---------------> Percentage Skip: {(float(total_skip)/(total_layers + 1)) * 100} %")
+        fopen = open("commit_logs/answers_1012141210.txt", "a")
+        # print(f"---------------> Percentage Skip: {(float(total_skip)/(total_layers + 1)) * 100} %")
+        print(f"{(float(total_skip)/(total_layers + 1)) * 100}", file=fopen, flush=True)
+        fopen.close()
+
         if logprobs:
             token_logprobs = token_logprobs.tolist()
         out_tokens, out_logprobs = [], []
