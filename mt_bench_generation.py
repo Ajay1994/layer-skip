@@ -1,5 +1,5 @@
 import os
-os.environ["CUDA_VISIBLE_DEVICES"]="4,5"
+os.environ["CUDA_VISIBLE_DEVICES"]="2,3"
 from typing import List, Optional
 import json
 
@@ -68,7 +68,7 @@ def main(
         max_seq_len=max_seq_len,
         max_batch_size=max_batch_size,
     )
-    file_name = f"commit_logs/answers_1012141210.jsonl"
+    file_name = f"commit_logs/random_answers_1414141414.jsonl"
 
     run_eval(
         generator,

@@ -4,7 +4,7 @@ import os
 import time
 
 import openai
-openai.api_key = "<YOUR OPENAI KEY>"
+openai.api_key = "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"
 import tqdm
 
 import shortuuid
@@ -94,7 +94,7 @@ if __name__ == "__main__":
     parser.add_argument("-a", "--answer-file-list", nargs="+", default=[])
     parser.add_argument("-p", "--prompt-file", default="./table/prompt.jsonl")
     parser.add_argument("-r", "--reviewer-file", default="./table/reviewer.jsonl")
-    parser.add_argument("-o", "--output-review-file", default="./judge_result.jsonl")
+    parser.add_argument("-o", "--output-review-file", default="./commit_logs/judge_result000000_1111111111.jsonl")
     parser.add_argument('--sparsity_ratio', type=float, default=0.0, help='Sparsity level')
     parser.add_argument("--sparsity_type", default="unstructured", type=str, choices=["unstructured", "4:8", "2:4"])
     parser.add_argument("--prune_method", default="magnitude" ,type=str, choices=["magnitude", "wanda", "sparsegpt"])
@@ -105,10 +105,10 @@ if __name__ == "__main__":
         help="maximum number of tokens produced in the output",
     )
     args = parser.parse_args()
-    filename = f"./logs/{args.prune_method}/answer_{args.sparsity_ratio}_{args.sparsity_type}"
-    args.answer_file_list.append("./answer.jsonl")
-    args.answer_file_list.append(filename+".jsonl")
-    args.output_review_file = filename + "_evaluation.jsonl"
+
+    args.answer_file_list.append("./commit_logs/answers_000000.jsonl")
+    args.answer_file_list.append("./commit_logs/answers_1111111111.jsonl")
+    # args.output_review_file = filename + "_evaluation.jsonl"
 
     question_jsons = get_json_list(args.question_file)
     answer1_jsons = get_json_list(args.answer_file_list[0])
