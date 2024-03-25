@@ -518,11 +518,11 @@ class Transformer(nn.Module):
         else:
             import random
             start_skip = random.randint(0, 40 - skip_count)
-            not_prune = 5
             for i in range(0, start_skip):
                 h, h_intermediate = self.layers[i](h, start_pos, freqs_cis, mask, False)
             for i in range(start_skip, start_skip + skip_count):
                 h, h_intermediate = self.layers[i](h, start_pos, freqs_cis, mask, True)
+                c_skip += 1
             for i in range(start_skip, self.params.n_layers):
                 h, h_intermediate = self.layers[i](h, start_pos, freqs_cis, mask, False)
 

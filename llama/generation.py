@@ -16,7 +16,7 @@ from fairscale.nn.model_parallel.initialize import (
     model_parallel_is_initialized,
 )
 
-from llama.model_skipffn_random import ModelArgs, Transformer
+from llama.model_ffn_baseline import ModelArgs, Transformer
 from llama.tokenizer import Tokenizer
 
 Role = Literal["system", "user", "assistant"]
@@ -51,6 +51,7 @@ UNSAFE_ERROR = "Error: special tags are not allowed as part of the prompt."
 class Llama:
     @staticmethod
     def build(
+        args,
         ckpt_dir: str,
         tokenizer_path: str,
         max_seq_len: int,
@@ -120,9 +121,10 @@ class Llama:
         model.load_state_dict(checkpoint, strict=False)
         print(f"Loaded in {time.time() - start_time:.2f} seconds")
 
-        return Llama(model, tokenizer, model_args)
+        return Llama(args, model, tokenizer, model_args)
 
-    def __init__(self, model: Transformer, tokenizer: Tokenizer, model_args):
+    def __init__(self, args, model: Transformer, tokenizer: Tokenizer, model_args):
+        self.args = args
         self.model = model
         self.tokenizer = tokenizer
         self.model_args = model_args
@@ -183,23 +185,24 @@ class Llama:
                 reduction="none",
                 ignore_index=pad_id,
             )
-        from llama.utils import calc_skip_pattern
-        skip_pattern = calc_skip_pattern(1, total_len)
+        
         # print(skip_pattern, len(skip_pattern))
+        skip_pattern = self.args["skip_pattern"]
         total_skip = 0
         total_layers = 0
         start_counter = False
-
+        total_tokens_skipped = 0
         import time
         start = torch.cuda.Event(enable_timing=True)
         end = torch.cuda.Event(enable_timing=True)
         start.record()
         for cur_pos in range(min_prompt_len, total_len):
-            logits, c_skip = self.model.forward_with_skip(tokens[:, prev_pos:cur_pos], prev_pos, skip_pattern[cur_pos])
-            if skip_pattern[cur_pos] != 0: start_counter = True
+            logits, c_skip = self.model.forward_with_skip(tokens[:, prev_pos:cur_pos], prev_pos, skip_pattern[cur_pos - min_prompt_len + 1], self.args["random"])
+            if skip_pattern[cur_pos  - min_prompt_len + 1] != 0: start_counter = True
             if start_counter == True:
                 total_skip += c_skip[0]
                 total_layers += c_skip[1]
+                total_tokens_skipped += 1
             if temperature > 0:
                 probs = torch.softmax(logits[:, -1] / temperature, dim=-1)
                 next_token = sample_top_p(probs, top_p)
@@ -228,11 +231,11 @@ class Llama:
 
         end.record()
         torch.cuda.synchronize()
-        print(f"Total Elapsed Time Till Now: {start.elapsed_time(end)/1000:.2f} sec.")
-        fopen = open("commit_logs/random_answers_1414141414.txt", "a")
-        # print(f"---------------> Percentage Skip: {(float(total_skip)/(total_layers + 1)) * 100} %")
-        print(f"{(float(total_skip)/(total_layers + 1)) * 100}", file=fopen, flush=True)
-        fopen.close()
+        print(f"Total Elapsed Time Till Now: {start.elapsed_time(end)/1000:.2f} sec with tokens skiped == {total_tokens_skipped}.")
+
+        skip_ratio = (float(total_skip)/(total_layers + 1)) * 100
+        self.args["skip_ratio"] = skip_ratio
+        self.args["total_tokens_skipped"] = total_tokens_skipped
 
         if logprobs:
             token_logprobs = token_logprobs.tolist()
@@ -253,6 +256,9 @@ class Llama:
             out_logprobs.append(probs)
         return (out_tokens, out_logprobs if logprobs else None)
 
+    def get_skip_ratio(self):
+        return [self.args["skip_ratio"], self.args["total_tokens_skipped"]]
+    
     def text_completion(
         self,
         prompts: List[str],

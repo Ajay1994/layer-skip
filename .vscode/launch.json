@@ -15,7 +15,7 @@
             "args": [
                 "--nproc_per_node", "2",
                 "--master_port", "35001",
-                "mt_bench_generation.py"
+                "chat_generation.py"
             ]
         }
     ]

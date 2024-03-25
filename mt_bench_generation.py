@@ -1,10 +1,9 @@
 import os
-os.environ["CUDA_VISIBLE_DEVICES"]="2,3"
 from typing import List, Optional
 import json
 
 import fire
-# torchrun --nproc_per_node 1 chat_generation.py  --max_seq_len 512 --max_batch_size 1
+# python -m torch.distributed.launch --nproc_per_node=2 --master_port=25692 mt_bench_generation.py --random False --file
 from llama import Llama, Dialog
 
 def get_model_answers(generator, question, max_gen_len, temperature, top_p):
@@ -22,7 +21,7 @@ def get_model_answers(generator, question, max_gen_len, temperature, top_p):
         top_p=top_p,
     )
     # print(f"{dialogs[0][0]['role'].capitalize()}: {dialogs[0][0]['content']}\n")
-    # print(f"> {result[0]['generation']['role'].capitalize()}: {result[0]['generation']['content']}")
+    print(f"> {result[0]['generation']['role'].capitalize()}: {result[0]['generation']['content']}\n Skipped %: {generator.get_skip_ratio()}")
     import shortuuid
     ans_id = shortuuid.uuid()
     return {
@@ -30,7 +29,7 @@ def get_model_answers(generator, question, max_gen_len, temperature, top_p):
             "text": result[0]['generation']['content'],
             "answer_id": ans_id,
             "model_id": "llama2-13b",
-            "metadata": {},
+            "metadata": {"skip_ratio": generator.get_skip_ratio()},
             }
 
 
@@ -61,15 +60,28 @@ def main(
     max_seq_len: int = 1024,
     max_batch_size: int = 1,
     max_gen_len: Optional[int] = None,
+    random = True,
+    file = "test"
 ):
+    file_name = f"commit_logs/{file}_{random}.jsonl"
+
+    print(file_name, random)
+    from llama.utils import calc_skip_pattern
+    skip_pattern = calc_skip_pattern(1, max_seq_len, random)
+    
+    args = {}
+    args["file"] = file_name
+    args["random"] = random
+    args["skip_pattern"] = skip_pattern
+
     generator = Llama.build(
+        args,
         ckpt_dir=ckpt_dir,
         tokenizer_path=tokenizer_path,
         max_seq_len=max_seq_len,
         max_batch_size=max_batch_size,
     )
-    file_name = f"commit_logs/random_answers_1414141414.jsonl"
-
+    
     run_eval(
         generator,
         "./table/question.jsonl",

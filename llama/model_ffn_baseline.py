@@ -491,7 +491,7 @@ class Transformer(nn.Module):
     #     return output
     
 
-    def forward_with_skip(self, tokens: torch.Tensor, start_pos: int, skip_count: int):
+    def forward_with_skip(self, tokens: torch.Tensor, start_pos: int, skip_count: int, is_random):
         skip_flag = False
         cosine_skip_thresold = 0.95
         _bsz, seqlen = tokens.shape
@@ -516,44 +516,27 @@ class Transformer(nn.Module):
             for layer in self.layers:
                 h, h_intermediate = layer(h, start_pos, freqs_cis, mask, skip_flag)
         else:
-            # h, h_intermediate = self.layers[0](h, start_pos, freqs_cis, mask, skip_flag)
-            # j = 1
-            # while j < self.params.n_layers:
-            #     cos = F.cosine_similarity(h, h_intermediate, dim=2)
-            #     if cos.item() > cosine_skip_thresold and skip_count > 0:
-            #         skip_flag = True
-            #         for s in range(0, skip_count):
-            #             h, h_intermediate = self.layers[j](h, start_pos, freqs_cis, mask, skip_flag)
-            #             c_skip += 1
-            #             skip_count -= 1
-            #             j += 1
-            #             if j == self.params.n_layers: break
-            #         skip_flag = False
-            #     else:
-            #         h, h_intermediate = self.layers[j](h, start_pos, freqs_cis, mask, skip_flag)
-            #         j += 1
-            not_prune = 5
-            for i in range(0, not_prune):
-                h, h_intermediate = self.layers[i](h, start_pos, freqs_cis, mask, skip_flag)
-            j = not_prune
-            while j < self.params.n_layers - not_prune:
-                cos = F.cosine_similarity(h, h_intermediate, dim=2)
-                if cos.item() > cosine_skip_thresold and skip_count > 0:
-                    skip_flag = True
-                    for s in range(0, skip_count):
-                        h, h_intermediate = self.layers[j](h, start_pos, freqs_cis, mask, skip_flag)
-                        c_skip += 1
-                        skip_count -= 1
-                        j += 1
-                        if j == self.params.n_layers - not_prune: break
-                    skip_flag = False
-                else:
-                    h, h_intermediate = self.layers[j](h, start_pos, freqs_cis, mask, skip_flag)
-                    j += 1
+            import random
 
-            for i in range(self.params.n_layers - not_prune, self.params.n_layers):
-                h, h_intermediate = self.layers[i](h, start_pos, freqs_cis, mask, skip_flag)
+            if self.params.n_layers == 32: 
+                not_prune_s, not_prune_l = 10, 28 
+            else:
+                not_prune_s, not_prune_l = 10, 35
 
+            if is_random == True:
+                start_skip = random.randint(0, self.params.n_layers - skip_count)
+                end_skip = start_skip + skip_count
+            else:
+                start_skip = random.randint(not_prune_s, not_prune_l - skip_count)
+                end_skip = start_skip + skip_count
+
+            for i in range(0, start_skip):
+                h, h_intermediate = self.layers[i](h, start_pos, freqs_cis, mask, False)
+            for i in range(start_skip, end_skip):
+                h, h_intermediate = self.layers[i](h, start_pos, freqs_cis, mask, True)
+                c_skip += 1
+            for i in range(end_skip, self.params.n_layers):
+                h, h_intermediate = self.layers[i](h, start_pos, freqs_cis, mask, False)
 
         h = self.norm(h)
         output = self.output(h).float()
