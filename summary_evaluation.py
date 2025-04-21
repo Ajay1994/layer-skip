@@ -4,7 +4,7 @@ import os
 import time
 
 import openai
-openai.api_key = "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"
+openai.api_key = "XXXX"
 import tqdm
 
 import shortuuid
