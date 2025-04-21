@@ -1,5 +1,5 @@
 import os
-os.environ["CUDA_VISIBLE_DEVICES"]="6,7"
+os.environ["CUDA_VISIBLE_DEVICES"]="6,7,8"
 from typing import List, Optional
 import pandas as pd
 import numpy as np
