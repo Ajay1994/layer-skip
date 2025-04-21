@@ -3,7 +3,7 @@ from typing import List, Optional
 import json
 
 import fire
-# python -m torch.distributed.launch --nproc_per_node=2 --master_port=25692 mt_bench_generation.py --random False --file
+#python -m torch.distributed.launch --nproc_per_node=2 --master_port=25692 mt_bench_generation.py --random False --file
 from llama import Llama, Dialog
 
 def get_model_answers(generator, question, max_gen_len, temperature, top_p):
